@@ -12,7 +12,9 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://cloud.digitalocean.com/v1/oauth/authorize', $state);
+        return $this->buildAuthUrlFromBase(
+            'https://cloud.digitalocean.com/v1/oauth/authorize', $state
+        );
     }
 
     /**
@@ -28,7 +30,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('https://api.digitalocean.com/v2/account', [
+        $response = $this->getHttpClient()->get(
+            'https://api.digitalocean.com/v2/account', [
             'headers' => [
                 'Authorization' => 'Bearer '.$token,
             ],
@@ -43,11 +46,9 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-            'id'       => $user['uuid'],
-            'nickname' => null,
-            'name'     => null,
-            'email'    => $user['email'],
-            'avatar'   => 'http://www.gravatar.com/avatar/'.md5($user['email']),
+            'id' => $user['uuid'], 'nickname' => null, 'name' => null,
+            'email' => $user['email'],
+            'avatar' => 'http://www.gravatar.com/avatar/'.md5($user['email']),
         ]);
     }
 
@@ -56,6 +57,8 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getTokenFields($code)
     {
-        return array_merge(parent::getTokenFields($code), ['grant_type' => 'authorization_code']);
+        return array_merge(parent::getTokenFields($code), [
+            'grant_type' => 'authorization_code',
+        ]);
     }
 }
