@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\DigitalOcean;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;

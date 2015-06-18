@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\DigitalOcean;
 
 use Laravel\Socialite\Two\AbstractProvider;
@@ -37,7 +38,7 @@ class Provider extends AbstractProvider implements ProviderInterface
             ],
         ]);
 
-        return json_decode($response->getBody(), true)['account'];
+        return json_decode($response->getBody()->getContents(), true)['account'];
     }
 
     /**
